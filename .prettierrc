@@ -1,0 +1,8 @@
+{
+  "bracketSpacing": true,
+  "printWidth": 120,
+  "endOfLine": "crlf",
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "htmlWhitespaceSensitivity": "ignore"
+}

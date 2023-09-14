@@ -1,0 +1,8 @@
+/dist
+node_modules
+.prettierrc
+.prettierignore
+package.json
+package-lock.json
+tsconfig.json
+README.md
