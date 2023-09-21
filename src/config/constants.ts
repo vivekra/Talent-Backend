@@ -23,4 +23,7 @@ export const messages = {
     passwordNotCorrect: "Password you have enterded is in correct",
     notAValidUser: "User Details you have entered is not valid",
   },
+  details: {
+    welcomeMail: "Welcome to Digital - Q Talent Site",
+  }
 };

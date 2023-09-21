@@ -1,12 +1,12 @@
 import { MongoService } from "../mongo/index";
 import dbConfig from "../config/mongo";
 import { sign, verify } from "jsonwebtoken";
-import { env, envconfig } from "../config/environment";
-import dotenv from "dotenv";
+import { envconfig } from "../config/environment";
 import { ILoginPayload, IRegisterPayload } from "../models/AuthModel";
 import { DecryptData, EncryptData } from "../utils/CryptrHelper";
 import { errorValues, messages } from "../config/constants";
-dotenv.config({ path: `.env.${env.NODE_ENV}` });
+import { sendMail } from "../config/NodemailerConfig";
+import { WelcomeMailContent } from "../HtmlTemplates/WelcomeMail";
 
 class AuthService {
   static async getLoginDetails(userName: ILoginPayload["userName"], password: ILoginPayload["password"]) {
@@ -78,6 +78,7 @@ class AuthService {
             } else {
               const encryptedPassward = EncryptData(RegisterPayload.password);
               const newUser = {
+                userType: "User",
                 password: encryptedPassward,
                 name: RegisterPayload.name,
                 email: RegisterPayload.email,
@@ -86,6 +87,7 @@ class AuthService {
               return obj.connection
                 ?.insertOne(newUser)
                 .then((data: any) => {
+                  sendMail({email: RegisterPayload.email, subject: messages.details.welcomeMail, htmlData: WelcomeMailContent(RegisterPayload.name)})
                   return { data: data, message: messages.successMessage.registration };
                 })
                 .catch((e: any) => {

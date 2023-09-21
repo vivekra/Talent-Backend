@@ -9,11 +9,11 @@ const loginPayload = {
 
 const registerPayload = {
   body: Joi.object().keys({
-    name: Joi.number().required(),
+    name: Joi.string().required(),
     email: Joi.string().required(),
     mobileNumber: Joi.number().required(),
     password: Joi.string().required(),
-    confirmpassword: Joi.string()
+    confirmPassword: Joi.string()
       .equal(Joi.ref("password"))
       .required()
       .label("Confirm password")

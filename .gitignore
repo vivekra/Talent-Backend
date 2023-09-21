@@ -1,7 +1,4 @@
 node_modules
-.env
-.env.development
 .git
 /dist
 package-lock.json
-tsconfig.json
