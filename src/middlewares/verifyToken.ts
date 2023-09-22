@@ -3,7 +3,7 @@ import { AuthController } from "../controller/AuthController";
 const verify = (req: Request, res: Response, next: NextFunction) => {
   if (req.url) {
     var token = req.headers["authorization"] as string;
-    if (!token) return res.status(401).send({ auth: false, message: "No token provided." });
+    if (!token) return res.status(401).send({ auth: false, message: "No token provided. Unauthorized user" });
     AuthController.verifyAuthentication(
       token.split("Bearer ")[1],
       () => {

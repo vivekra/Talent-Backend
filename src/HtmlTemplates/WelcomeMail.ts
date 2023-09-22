@@ -121,7 +121,7 @@ export const WelcomeMailContent = (
                                                   src="https://digitalq.co.in/assets/images/dq-logo.svg"
                                                   alt
                                                   style="display: block"
-                                                  width="57"
+                                                  width="150"
                                                 />
                                               </a>
                                             </td>
@@ -264,7 +264,7 @@ export const WelcomeMailContent = (
                                                   margin-bottom: 15px;
                                                 "
                                               >
-                                                <b>Vivek</b>
+                                                <b>Digita-Q Team</b>
                                               </p>
                                             </td>
                                           </tr>

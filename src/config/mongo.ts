@@ -1,6 +1,6 @@
 const dbConfig = {
   databaseName: "Talent",
-  expire: 86400 * 7,
+  expire: "7d",
   message: {
     serverError: "Server ecxeption. Please contact administrator!",
     notExist: "Not Exist",
