@@ -8,8 +8,6 @@ import routes from "./routes/talent/index";
 import path from "path";
 import dbConfig from "./config/mongo";
 import { routePaths } from "./config/constants";
-// import { sendMail } from "./config/NodemailerConfig";
-// import { WelcomeMailContent } from "./HtmlTemplates/WelcomeMail";
 
 const app = express();
 
@@ -36,7 +34,6 @@ app.use(routePaths.baseURL, routes);
 app.use((req, res, next) => {
   next(new ApiError(httpStatus.NOT_FOUND, dbConfig.message.notExist));
 });
-// sendMail({email:"alaspersonal115@gmail.com", subject: "Welcome mail", htmlData: WelcomeMailContent("AlasPravinkumar Rajamani")})
 
 // convert error to ApiError, if needed
 app.use(ErrorHandle.errorConverter);

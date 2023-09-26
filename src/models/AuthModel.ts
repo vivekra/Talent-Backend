@@ -3,6 +3,16 @@ export interface ILoginPayload {
   password: string;
 }
 
+export interface IUpdatePasswordPayload {
+  userName: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface IforgotPasswordPayload {
+  userName: string;
+}
+
 export interface IRegisterPayload {
   name: string;
   email: string;

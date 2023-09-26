@@ -1,9 +1,7 @@
-import dotenv from "dotenv";
 import * as mongoDB from "mongodb";
 import dbConfig from "../config/mongo";
-import { env, envconfig } from "../config/environment";
+import { envconfig } from "../config/environment";
 import { DecryptData } from "../utils/CryptrHelper";
-dotenv.config({ path: `.env.${env.NODE_ENV}` });
 
 const dbcon_url: any = envconfig?.MONGO_URI && DecryptData(envconfig.MONGO_URI);
 
