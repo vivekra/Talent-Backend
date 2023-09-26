@@ -7,6 +7,10 @@ import verify from "../../middlewares/verifyToken";
 
 const route = express.Router();
 
+route.get("/", (req, res) => {
+  res.json("Server running...")
+})
+
 route.post(routePaths.endpoints.auth.login, validate(authValidation.loginPayload), (request, response) => {
   AuthController.getLoginDetails(request, response);
 });
