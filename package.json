@@ -5,8 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "format": "npx prettier --write .",
-    "build": "netlify build --prod"
+    "format": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -21,12 +20,9 @@
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
     "mongodb": "^4.3.1",
-    "netlify-cli": "^16.4.2",
-    "netlify-lambda": "^2.0.16",
     "nodemailer": "^6.9.5",
     "passport-jwt": "^4.0.1",
     "path": "^0.12.7",
-    "serverless-http": "^3.2.0",
     "ts-node": "^10.9.1",
     "winston": "^3.8.2"
   },
