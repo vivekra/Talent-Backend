@@ -1,12 +1,12 @@
 {
-  "name": "Digital - Q Talent",
+  "name": "Digital-Q-Talent",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "src/main.ts",
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "nodemon src/main.ts",
     "format": "npx prettier --write .",
-    "build": "netlify build --prod"
+    "build": "netlify build"
   },
   "keywords": [],
   "author": "",

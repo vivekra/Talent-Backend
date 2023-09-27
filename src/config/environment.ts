@@ -5,7 +5,7 @@ export const env: IEnvModel = {
   NODE_ENV: "development",
 };
 
-const configResult = config({ path: `.env.${env.NODE_ENV}` });
+const configResult = config({ path: `.env` });
 if (configResult.error) {
   throw configResult.error;
 }
