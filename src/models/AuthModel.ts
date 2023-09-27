@@ -3,6 +3,10 @@ export interface ILoginPayload {
   password: string;
 }
 
+export interface IActivationPayload {
+  [key: string]: string;
+}
+
 export interface IUpdatePasswordPayload {
   userName: string;
   password: string;

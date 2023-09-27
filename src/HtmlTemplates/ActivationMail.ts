@@ -1,6 +1,5 @@
-export const WelcomeMailContent = (
+export const ActivationMail = (
   name: string,
-  id: string,
 ) => `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
@@ -223,13 +222,8 @@ export const WelcomeMailContent = (
                                       <table width="100%" cellspacing="0" cellpadding="0">
                                         <tbody>
                                           <tr>
-                                            <td class="esd-block-text es-p5t es-p15b es-m-txt-c" align="center">
-                                              <h2>USER REGISTRATION SUCCESSFUL</h2>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="esd-block-text es-p5t es-p15b es-m-txt-c" align="center">
-                                              <a href='http://localhost:3000/activateuser/${id}' >Click here to activate</a>
+                                            <td class="esd-block-text es-p5t es-p15b es-m-txt-c" align="left">
+                                              <h2>YOUR ACCOUNT IS NOW ACTIVE</h2>
                                             </td>
                                           </tr>
                                           <tr>

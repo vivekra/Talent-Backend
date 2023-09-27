@@ -11,6 +11,10 @@ route.post(routePaths.endpoints.auth.login, validate(authValidation.loginPayload
   AuthController.getLoginDetails(request, response);
 });
 
+route.get(routePaths.endpoints.auth.activate, validate(authValidation.activationPayload), (request, response) => {
+  AuthController.getAccountActivationDetails(request, response);
+});
+
 route.post(
   routePaths.endpoints.auth.forgotpassword,
   validate(authValidation.forgotPasswordPayload),
