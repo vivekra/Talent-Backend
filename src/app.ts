@@ -27,9 +27,6 @@ app.options("*", cors());
 
 // talent api routes
 app.use(routePaths.baseURL, routes);
-app.use("/", (req, res) => {
-  res.json("Server running...")
-})
 
 // token check
 

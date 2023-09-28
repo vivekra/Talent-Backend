@@ -4,9 +4,10 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "start": "nodemon src/main.ts",
+    "dev": "nodemon src/main.ts",
     "format": "npx prettier --write .",
-    "build": "netlify build"
+    "start": "./node_modules/.bin/netlify-lambda serve src",
+    "build": "./node_modules/.bin/netlify-lambda build src"
   },
   "keywords": [],
   "author": "",
