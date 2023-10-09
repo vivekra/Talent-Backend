@@ -2,7 +2,13 @@ import { MongoService } from "../mongo/index";
 import dbConfig from "../config/mongo";
 import { sign, verify } from "jsonwebtoken";
 import { envconfig } from "../config/environment";
-import { ILoginPayload, IRegisterPayload, IUpdatePasswordPayload, IforgotPasswordPayload } from "../models/AuthModel";
+import {
+  IActivationPayload,
+  ILoginPayload,
+  IRegisterPayload,
+  IUpdatePasswordPayload,
+  IforgotPasswordPayload,
+} from "../models/AuthModel";
 import { DecryptData, EncryptData } from "../utils/CryptrHelper";
 import { errorValues, messages, statusCode } from "../config/constants";
 import { sendMail } from "../config/NodemailerConfig";
@@ -10,6 +16,7 @@ import { WelcomeMailContent } from "../HtmlTemplates/WelcomeMail";
 import { ForgotPasswordMail } from "../HtmlTemplates/forgotPasswordMail";
 import { decodeJwt } from "../HelperFunction/jwtHelper";
 import { ObjectId } from "mongodb";
+import { ActivationMail } from "../HtmlTemplates/ActivationMail";
 
 class AuthService {
   static async getLoginDetails(userName: ILoginPayload["userName"], password: ILoginPayload["password"]) {
@@ -23,6 +30,15 @@ class AuthService {
           .then((data: any) => {
             if (!data) {
               flag = false;
+            }
+            if (!data?.isActive) {
+              flag = false;
+              return {
+                statusCode: statusCode.unAuthorized,
+                data: null,
+                auth: flag,
+                message: messages.errorMessages.notAActiveUser,
+              };
             }
             if (data?.password && DecryptData(data.password) !== password) {
               return {
@@ -87,6 +103,7 @@ class AuthService {
               const encryptedPassward = EncryptData(RegisterPayload.password);
               const newUser = {
                 userType: "User",
+                isActive: false,
                 password: encryptedPassward,
                 name: RegisterPayload.name,
                 email: RegisterPayload.email,
@@ -98,7 +115,7 @@ class AuthService {
                   sendMail({
                     email: RegisterPayload.email,
                     subject: messages.details.welcomeMail,
-                    htmlData: WelcomeMailContent(RegisterPayload.name),
+                    htmlData: WelcomeMailContent(RegisterPayload.name, data._id),
                   });
                   return { statusCode: statusCode.created, data: data, message: messages.successMessage.registration };
                 })
@@ -175,6 +192,50 @@ class AuthService {
                     statusCode: statusCode.ok,
                     data: { ...data.value, password: updatePasswordPayload.password },
                     message: messages.successMessage.updatePassword,
+                  };
+                })
+                .catch((e: any) => {
+                  return { ...e, statusCode: statusCode.badRequest, data: null };
+                });
+            }
+          })
+          .catch((e: any) => {
+            return { ...e, statusCode: statusCode.badRequest, data: null };
+          })
+          .finally(() => {
+            obj.client.close();
+          });
+      }
+    });
+  }
+
+  static async getAccountActivationDetails(ActivationPayload: IActivationPayload) {
+    const { id } = ActivationPayload;
+    return MongoService.collectionDetails(dbConfig.collection.user_profile).then(async (obj: any) => {
+      if (obj.connection) {
+        return obj.connection
+          .findOne({
+            _id: new ObjectId(id),
+          })
+          .then((data: any) => {
+            if (!data?._id) {
+              return { statusCode: statusCode.notFound, data: null, message: messages.errorMessages.notAValidUser };
+            } else {
+              const bodyContent = {
+                isActive: true,
+              };
+              return obj.connection
+                .findOneAndUpdate({ _id: new ObjectId(id) }, { $set: bodyContent }, {})
+                .then((data: any) => {
+                  sendMail({
+                    email: data.value.email,
+                    subject: messages.details.ActivationMail,
+                    htmlData: ActivationMail(data.value.name),
+                  });
+                  return {
+                    statusCode: statusCode.ok,
+                    data: null,
+                    message: messages.successMessage.accountActivation,
                   };
                 })
                 .catch((e: any) => {

@@ -6,6 +6,11 @@ const loginPayload = {
     password: Joi.string().required(),
   }),
 };
+const activationPayload = {
+  params: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
+};
 
 const updatePasswordPayload = {
   body: Joi.object().keys({
@@ -41,6 +46,7 @@ const registerPayload = {
 
 const authValidation = {
   loginPayload,
+  activationPayload,
   registerPayload,
   forgotPasswordPayload,
   updatePasswordPayload,
